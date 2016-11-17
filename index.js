@@ -31,8 +31,7 @@ class csv2sqlite3 {
 
             this.pk = 'id';// pkfilename
             this.columns = null;
-
-            this.csvParser = require('csv-parse')({ delimiter: this.DELIMITER });
+            this.csvParser = require('csv').parse({ delimiter: this.DELIMITER });
             this._attachParser();
             // console.log(this);
             
@@ -117,6 +116,7 @@ class csv2sqlite3 {
            this.columns.forEach((v)=>{
                this.db.run(`create index ${v} on ${this.TBL}(${v})`);
            });
+           console.log('finished! output : ', this.DBFILE);
        }); 
     }
 }
