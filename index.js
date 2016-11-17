@@ -1,9 +1,11 @@
 'use strict';
 
 
+if((!process.argv[2])){
+    process.exit(1);
+}
 
-
-
+const CSVARG = process.argv[2];
 
 
 
@@ -15,11 +17,11 @@
 
 
 class csv2sqlite3 {
-    static init(){
+    static init(csvfpath){
         return new Promise((res,rej)=>{
             let path = require('path');
             this.CHAR_CODE = 'utf-8';
-            this.CSVPATH = './testdata.csv';
+            this.CSVPATH =csvfpath;
             this.BASENAME =  path.parse(this.CSVPATH).name;
             this.DBFILE = this.BASENAME+'.db';
             this.TBL = this.BASENAME;
@@ -119,9 +121,10 @@ class csv2sqlite3 {
     }
 }
 
-csv2sqlite3.init()
+csv2sqlite3.init(CSVARG)
 .then(()=>{
     csv2sqlite3.convert();
 }).catch((err)=>{
     console.error(err);
+    process.exit(1);
 });
