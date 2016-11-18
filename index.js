@@ -69,7 +69,8 @@ class csv2sqlite3 {
     static _openrs(){
         return new Promise((res,rej)=>{
             // chk csvfile exists
-            this.fs.access(this.CSVPATH, this.fs.constants.R_OK,
+            let r_ok = ( this.fs.R_OK )? this.fs.R_OK : this.fs.containts.R_OK;
+            this.fs.access(this.CSVPATH, r_ok,
                 (err)=>{
                     if(err){
                         rej(err);
